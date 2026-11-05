@@ -65,3 +65,8 @@ benchmarks/results
 # Pixi
 .pixi/
 .venv/
+
+# Environment files
+.env
+.env.*
+
