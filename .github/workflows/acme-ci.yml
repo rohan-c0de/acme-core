@@ -1,0 +1,30 @@
+name: acme-ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install package
+        run: pip install -e '.[default,test]'
+
+      - name: Run tools tests
+        run: python -m pytest tools/tests -q
+
+      - name: Run acme guard
+        run: python tools/acme_guard.py
+
+      - name: Run networkx tests
+        run: python -m pytest -n auto --doctest-modules networkx -q
