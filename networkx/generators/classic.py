@@ -21,6 +21,7 @@ __all__ = [
     "balanced_tree",
     "barbell_graph",
     "binomial_tree",
+    "binomial_tree_graph",
     "complete_graph",
     "complete_multipartite_graph",
     "circular_ladder_graph",
@@ -259,7 +260,7 @@ def barbell_graph(m1, m2, create_using=None):
 
 
 @nx._dispatchable(graphs=None, returns_graph=True)
-def binomial_tree(n, create_using=None):
+def binomial_tree_graph(n, create_using=None):
     """Returns the Binomial Tree of order n.
 
     The binomial tree of order 0 consists of a single node. A binomial tree of order k
@@ -268,7 +269,7 @@ def binomial_tree(n, create_using=None):
 
     .. plot::
 
-        >>> nx.draw(nx.binomial_tree(3))
+        >>> nx.draw(nx.binomial_tree_graph(3))
 
     Parameters
     ----------
@@ -294,6 +295,22 @@ def binomial_tree(n, create_using=None):
         G.add_edge(0, N)
         N *= 2
     return G
+
+
+def binomial_tree(n, create_using=None):
+    """
+    .. deprecated:: 3.8
+       `binomial_tree` is a deprecated alias for `binomial_tree_graph`.
+       Use `binomial_tree_graph` instead.
+    """
+    import warnings
+
+    warnings.warn(
+        "binomial_tree is deprecated, use `binomial_tree_graph` instead.",
+        category=DeprecationWarning,
+        stacklevel=2,
+    )
+    return binomial_tree_graph(n, create_using)
 
 
 @nx._dispatchable(graphs=None, returns_graph=True)

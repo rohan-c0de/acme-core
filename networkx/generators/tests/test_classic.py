@@ -157,6 +157,13 @@ class TestGeneratorClassic:
                 assert nx.number_of_nodes(b) == 2**n
                 assert nx.number_of_edges(b) == (2**n - 1)
 
+    def test_binomial_tree_deprecated(self):
+        with pytest.deprecated_call():
+            old = nx.binomial_tree(3)
+        new = nx.binomial_tree_graph(3)
+        assert nodes_equal(old.nodes(), new.nodes())
+        assert edges_equal(old.edges(), new.edges())
+
     def test_complete_graph(self):
         # complete_graph(m) is a connected graph with
         # m nodes and  m*(m+1)/2 edges
