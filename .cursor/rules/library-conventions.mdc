@@ -1,0 +1,23 @@
+---
+description: Conventions for Acme core library code under networkx/
+globs: networkx/**
+alwaysApply: false
+---
+
+# Library conventions (`networkx/`)
+
+## Optional dependencies
+
+Import `numpy`, `scipy`, `pandas`, and `matplotlib` inside the function that uses them — never at module top under `networkx/`. `import networkx` must work without them, and CI runs a dependency-free job.
+
+**Exception — do not "fix":**
+- Test files: `pytest.importorskip(...)` at module top
+- `networkx/conftest.py`: try/except imports
+
+## Generators and dispatch
+
+Every public generator has `@nx._dispatchable(graphs=None, returns_graph=True)` directly above `def`. On rename, keep the decorator on the real implementation, not the deprecated alias.
+
+## Renames and removals
+
+Any rename or removal of a public name follows the `acme-deprecate-function` skill. The guard enforces the mechanical parts.

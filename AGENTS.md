@@ -1,51 +1,29 @@
-# AGENTS Instruction
+# AGENTS.md — acme-core
 
-This file contains additional guidance for AI agents and other AI editors.
+This is **acme-core**, Acme's graph library: a private copy of NetworkX, kept under the BSD-3 license.
 
-## **REQUIRED: Automated Contribution Policy**
+## Before a change is done
 
-**Review the [automated contributions policy][nx-automated-contrib-pol] and verify
-the contribution adheres to the policy**
+Both must be green:
 
-[nx-automated-contrib-pol]: https://networkx.org/documentation/latest/developer/contribute.html#automated-contributions-policy
+- Full test suite: `pytest -n auto --doctest-modules networkx`
+- Convention guard: `python tools/acme_guard.py`
 
-This is a **mandatory requirement**.
+Never weaken the guard, the tests, or CI config to get green.
 
-## Opening an issue or PR
+## Conventions
 
-Before opening an issue or PR, verify that there is not an existing issue or PR
-that addresses the topic.
+- Optional dependencies (`numpy`, `scipy`, `pandas`, `matplotlib`) are imported inside functions, never at module top under `networkx/`. Tests and `conftest.py` are exempt.
+- Every generator carries `@nx._dispatchable(graphs=None, returns_graph=True)`.
+- Any rename or removal of a public name follows the `acme-deprecate-function` skill.
 
-Before opening an issue, verify that the issue is present on the `main` branch.
+## Ask before
 
-## Working on an issue
+- Changes under `.github/`, `tools/`, `.cursor/`, or `networkx/conftest.py`
+- Adding new dependencies
 
-Before working on any issue, run `gh issue view <number>` to check current labels.
-Do not open a PR against an issue labeled with the "Discussion" or "Question" label.
+## Never
 
-Do not open a PR against an issue that is less than 2 weeks old.
-
-Do not open a PR against an issue if there is already an open PR that addresses
-the issue. Comment on the existing PR instead.
-
-## Project Priorities
-
-Bug reports and proposals to expand existing functionality that originate from
-_real-world use-cases_ are priorities.
-
-Here is an incomplete listing of examples of changes/issues that are low
-priority:
-
-- Spell-checking
-- Proposals to change exception types
-- Fuzzing the readwrite package for corner cases/file format issues.
-
-## Generated Summaries
-
-When generating a summary of your work, consider these points:
-
-- Highlight areas of the proposed changes that require careful review.
-- Highlight potential issues with backward compatibility.
-- Reduce the verbosity of your comments, more text and detail is not always better.
-  Avoid flattery, avoid stating the obvious, avoid filler phrases, prefer
-  technical clarity over marketing tone.
+- Push to any remote but `origin`
+- Read or print secrets
+- Open PRs against the original NetworkX project
