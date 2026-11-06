@@ -26,6 +26,7 @@ Classic
    balanced_tree
    barbell_graph
    binomial_tree
+   binomial_tree_graph
    complete_graph
    complete_multipartite_graph
    circular_ladder_graph

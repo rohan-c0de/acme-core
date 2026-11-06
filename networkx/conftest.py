@@ -120,6 +120,9 @@ def set_warnings():
         "ignore", category=DeprecationWarning, message="maybe_regular_expander"
     )
     warnings.filterwarnings(
+        "ignore", category=DeprecationWarning, message="binomial_tree is deprecated"
+    )
+    warnings.filterwarnings(
         "ignore", category=DeprecationWarning, message="metric_closure is deprecated"
     )
     warnings.filterwarnings(
